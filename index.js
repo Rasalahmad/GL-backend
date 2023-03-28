@@ -4,15 +4,16 @@ import cors from "cors";
 import mongoose from "mongoose";
 import multer from "multer";
 import roomsRoute from "./routers/roomsRoute.js";
+import newsRoute from "./routers/newsRoute.js";
 
 const app = express();
 
-const corsOrigin = {
-  origin: "http://localhost:3000",
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOrigin));
+// const corsOrigin = {
+//   origin: "http://localhost:3000",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
+app.use(cors());
 
 // database connection
 mongoose.set("strictQuery", false);
@@ -59,7 +60,8 @@ app.post("/api/upload", upload.array("images"), (req, res) => {
 });
 
 // routing setup
-app.use("/api", roomsRoute);
+app.use("/api/room", roomsRoute);
+app.use("/api/news", newsRoute);
 
 app.listen(process.env.PORT, () => {
   connect();
